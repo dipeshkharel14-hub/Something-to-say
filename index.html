@@ -3,196 +3,382 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Something Special 💜</title>
+<title>💜</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
     height: 100vh;
-    background: linear-gradient(135deg, #6a00ff, #9d4edd, #c77dff);
-    overflow: hidden;
+    background: radial-gradient(circle at top, #c77dff, #5a189a);
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    font-family: Poppins;
     color: white;
 }
 
-/* Floating Hearts */
+/* Glow Particles */
 
-.heart {
+.particle {
     position: absolute;
-    font-size: 18px;
-    color: rgba(255,255,255,0.7);
+    width: 5px;
+    height: 5px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
     animation: float 6s linear infinite;
 }
 
 @keyframes float {
-    0% { transform: translateY(100vh) scale(1); opacity: 0; }
-    10% { opacity: 1; }
-    100% { transform: translateY(-10vh) scale(1.6); opacity: 0; }
+    from { transform: translateY(100vh); opacity: 0; }
+    to { transform: translateY(-10vh); opacity: 1; }
 }
 
-/* Glass Card */
+/* Wrapper */
 
-.card {
-    width: 90%;
+.wrapper {
+    width: 95%;
     max-width: 420px;
-    padding: 40px;
-    border-radius: 25px;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(18px);
-    text-align: center;
-    box-shadow: 0 0 40px rgba(0,0,0,0.2);
-    animation: popIn 1.2s ease;
+    padding: 25px;
+    border-radius: 30px;
+    border: 2px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 0 60px rgba(0,0,0,0.35);
+    animation: pop 1s ease;
 }
 
-@keyframes popIn {
+@keyframes pop {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
-h1 {
-    font-size: 26px;
-    margin-bottom: 10px;
+.card {
+    background: rgba(255,255,255,0.22);
+    border-radius: 22px;
+    padding: 35px 25px;
+    text-align: center;
 }
 
-p {
+.top-hearts {
+    font-size: 22px;
+    margin-bottom: 10px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse { 50% { transform: scale(1.15); } }
+
+h1 { font-size: 22px; margin-bottom: 8px; }
+
+.subtitle {
     font-size: 14px;
-    opacity: 0.85;
-    margin-bottom: 30px;
+    opacity: 0.9;
+    margin-bottom: 25px;
 }
 
 /* Buttons */
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    position: relative;
-}
-
-button {
+.btn {
+    width: 100%;
+    padding: 13px;
+    border-radius: 30px;
     border: none;
-    padding: 12px 26px;
-    border-radius: 50px;
     font-size: 15px;
+    margin-top: 12px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.25s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Yes Button */
+/* Ripple */
+
+.btn::after {
+    content:"";
+    position:absolute;
+    width:20px; height:20px;
+    background: rgba(255,255,255,0.5);
+    border-radius:50%;
+    transform: scale(0);
+    opacity:0;
+}
+
+.btn:active::after { animation:ripple 0.6s ease; }
+
+@keyframes ripple {
+    from { transform: scale(0); opacity:1; }
+    to { transform: scale(12); opacity:0; }
+}
 
 .yes {
-    background: white;
-    color: #6a00ff;
-    font-weight: 600;
-    box-shadow: 0 0 25px rgba(255,255,255,0.6);
-}
-
-.yes:hover {
-    transform: scale(1.08);
-}
-
-/* No Button */
-
-.no {
-    background: rgba(255,255,255,0.25);
+    background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
     color: white;
+    font-weight: 600;
+    box-shadow: 0 0 30px rgba(255,100,150,0.7);
+}
+
+.ghost { background: rgba(255,255,255,0.4); color:white; }
+.no { background: rgba(255,255,255,0.25); color:white; }
+
+/* Floating Celebration */
+
+.float {
     position: absolute;
+    font-size: 26px;
+    animation: balloon 4s ease-in infinite;
 }
 
-/* Success Message */
-
-.success {
-    margin-top: 25px;
-    font-size: 18px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: 0.5s ease;
+@keyframes balloon {
+    0% { transform: translateY(100vh) scale(0.4); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
 }
 
-.show {
-    opacity: 1;
-    transform: translateY(0);
+/* Firework */
+
+.firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
+    animation: explode 1s ease-out forwards;
 }
 
-/* Glow Pulse */
-
-.glow {
-    animation: glow 2s infinite;
-}
-
-@keyframes glow {
-    0% { box-shadow: 0 0 10px rgba(255,255,255,0.4); }
-    50% { box-shadow: 0 0 35px rgba(255,255,255,0.9); }
-    100% { box-shadow: 0 0 10px rgba(255,255,255,0.4); }
+@keyframes explode {
+    to {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="hearts"></div>
+<div class="wrapper">
+    <div class="card">
+        <div class="top-hearts">💖 💕</div>
+        <h1>Hey…</h1>
+        <div class="subtitle">Will you be mine? 😌💜</div>
 
-<div class="card">
-    <h1>Hey… 💜</h1>
-    <p>I have a tiny question that means a lot to me.</p>
-
-    <div class="buttons">
-        <button class="yes glow" onclick="yesClick()">Yes ✨</button>
-        <button class="no" id="noBtn">No 🙈</button>
-    </div>
-
-    <div class="success" id="success">
-        It’s official now 😌💞
+        <button class="btn yes" onclick="yesClick()">Yes ✨</button>
+        <button class="btn ghost" onclick="ghostClick()">Ghost 👻</button>
+        <button class="btn no" id="noBtn">No 🙈</button>
     </div>
 </div>
 
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-love-ambient-11066.mp3"></audio>
+
 <script>
-/* Floating Hearts */
 
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤";
+/* Atmosphere Glow */
 
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    heart.style.fontSize = (Math.random() * 10 + 14) + "px";
-
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
+function createParticle() {
+    const p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 6000);
 }
-setInterval(createHeart, 250);
+setInterval(createParticle, 100);
 
-/* Yes Click */
+/* Fireworks 🎆 */
+
+function fireworkBurst() {
+    for(let i=0;i<25;i++) {
+        const f = document.createElement("div");
+        f.className = "firework";
+
+        f.style.left = Math.random()*100 + "vw";
+        f.style.top = Math.random()*100 + "vh";
+
+        f.style.setProperty('--x', `${Math.random()*200-100}px`);
+        f.style.setProperty('--y', `${Math.random()*200-100}px`);
+
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 1000);
+    }
+}
+
+/* Floating Love */
+
+function floatLove() {
+    const el = document.createElement("div");
+    el.className = "float";
+    el.innerHTML = ["💖","🌹","✨","💕"][Math.floor(Math.random()*4)];
+    el.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+}
+
+/* YES CLICK — FINAL BOSS 😌🔥 */
 
 function yesClick() {
-    document.getElementById("success").classList.add("show");
+
+    document.getElementById("music").play();
+
+    setInterval(floatLove, 120);
+    setInterval(fireworkBurst, 900);
+
+    const win = window.open("", "_blank");
+
+    win.document.write(`
+    <html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle, #ff8fa3, #ff4d6d);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        color: white;
+        font-family: 'Great Vibes', cursive;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+    }
+
+    .side {
+        font-size: 28px;
+        animation: sway 3s ease-in-out infinite;
+    }
+
+    @keyframes sway { 50% { transform: translateY(-12px); } }
+
+    .poem {
+        font-size: 30px;
+        max-width: 520px;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    .float {
+        position: absolute;
+        font-size: 26px;
+        animation: balloon 4s ease-in infinite;
+    }
+
+    @keyframes balloon {
+        0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+        20% { opacity: 1; }
+        100% { transform: translateY(-10vh) scale(1.6); opacity: 0; }
+    }
+    </style>
+    </head>
+    <body>
+
+    <div class="container">
+        <div class="side">🌹 ✨ 💖</div>
+
+        <div class="poem">
+            In a world rushing past silent skies,<br><br>
+            I found something rare in your eyes.<br>
+            Not just beauty, not fleeting light,<br>
+            But a warmth that turned darkness bright.<br><br>
+            Like calm after storms, like stars above,<br>
+            You arrived softly, rewriting love.<br><br>
+            And if forever had one true meaning,<br>
+            It would be you — my heart’s quiet dreaming. 💜
+        </div>
+
+        <div class="side">💖 ✨ 🌹</div>
+    </div>
+
+    <script>
+    function floatItems() {
+        const el = document.createElement("div");
+        el.className = "float";
+        el.innerHTML = ["💖","🌹","✨"][Math.floor(Math.random()*3)];
+        el.style.left = Math.random()*100 + "vw";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+    }
+    setInterval(floatItems, 150);
+    <\/script>
+
+    </body>
+    </html>
+    `);
 }
 
-/* Evil No Button 😏 */
+/* Ghost Scene */
+
+function ghostClick() {
+    const win = window.open("", "_blank");
+
+    win.document.write(`
+    <html>
+    <style>
+    body {
+        margin:0;
+        height:100vh;
+        background:black;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:white;
+        font-family:Poppins;
+        overflow:hidden;
+    }
+    .ghost {
+        position:absolute;
+        font-size:30px;
+        animation:fly 3s linear infinite;
+    }
+    @keyframes fly {
+        from { transform: translateY(100vh); }
+        to { transform: translateY(-10vh); }
+    }
+    </style>
+    <body>
+        <h2>Please try Yes option 😌<br>Unable to ghost 👻</h2>
+        <script>
+        function ghostFly() {
+            const g = document.createElement("div");
+            g.className = "ghost";
+            g.innerHTML = "👻";
+            g.style.left = Math.random()*100 + "vw";
+            document.body.appendChild(g);
+            setTimeout(() => g.remove(), 3000);
+        }
+        setInterval(ghostFly, 220);
+        <\/script>
+    </body>
+    </html>
+    `);
+}
+
+/* No Troll 😏 */
 
 const noBtn = document.getElementById("noBtn");
+let stage = 0;
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton);
-
-function moveButton() {
-    const x = Math.random() * 250 - 125;
-    const y = Math.random() * 150 - 75;
-
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+function dodge() {
+    noBtn.style.transform =
+        `translate(${Math.random()*120-60}px, ${Math.random()*30}px)`;
 }
+
+noBtn.addEventListener("mouseover", dodge);
+
+noBtn.addEventListener("click", () => {
+    stage++;
+    if(stage===1) noBtn.innerText="Try Again 😌";
+    if(stage===2) noBtn.innerText="Still No? 🙈";
+    if(stage===3) noBtn.innerText="Try Yes Option 💜";
+    dodge();
+});
 </script>
 
 </body>
-    </html>
+</html>

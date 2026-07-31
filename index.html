@@ -1,27 +1,19 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🪷 अनुराग — A Devotion</title>
+<title>🪷 अनुराग — A Devotion | Crafted for You</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel+Decorative:wght@400;700&family=Dancing+Script:wght@500;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
 <style>
-
 /* ═══════════════════════════════════════════════════════════
    ✦ WELCOME, DIPESH ✦
-   This file is one page, top to bottom:
-     1. FONTS + COLORS   (below)
-     2. LAYOUT / LOOKS   (CSS, still inside <style>)
-     3. THE ACTUAL PAGE  (search for <body>)
-     4. THE BRAIN        (search for <script>, all logic + your CONFIG)
-
-   You only ever need to touch the CONFIG block inside <script>
-   to put in her name, your music file, your photos and your video.
-   Everything else already works — scroll to CONFIG and edit.
+   Masterpiece Interactive Romantic Experience
+   Theme: Lotus Pond & Krishna-Dusk Aesthetics
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  /* -- Krishna-dusk palette: deep night, peacock teal, temple gold, lotus pink -- */
   --night:        #170b38;
   --night-deep:   #0a0420;
   --peacock:      #12867c;
@@ -54,7 +46,26 @@ body {
   position: relative;
 }
 
-/* ── AMBIENT PETALS + PEACOCK CORNERS ── */
+/* ── CINEMATIC LOADER ── */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: var(--night-deep);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+#loader.fade-out { opacity: 0; visibility: hidden; }
+.loader-lotus { font-size: 64px; animation: pulseLotus 2s ease-in-out infinite; margin-bottom: 16px; }
+@keyframes pulseLotus { 0%,100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(255,111,156,0.4)); } 50% { transform: scale(1.15); filter: drop-shadow(0 0 35px rgba(227,178,60,0.8)); } }
+.loader-text { font-family: var(--font-eyebrow); font-size: 13px; letter-spacing: 3px; color: var(--gold-soft); margin-bottom: 20px; }
+.loader-bar-track { width: 220px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+.loader-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--peacock), var(--gold), var(--lotus)); transition: width 0.3s ease; }
+
+/* ── AMBIENT PETALS + FIREFLIES ── */
 .petal {
   position: fixed;
   top: -8vh;
@@ -69,6 +80,23 @@ body {
   8%   { opacity: 0.85; }
   92%  { opacity: 0.55; }
   100% { transform: translateY(112vh) rotate(540deg); opacity: 0; }
+}
+
+.firefly {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: var(--gold-soft);
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 8px var(--gold);
+  z-index: 4;
+  animation: flyAround 8s ease-in-out infinite alternate;
+}
+@keyframes flyAround {
+  0% { transform: translate(0, 0); opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { transform: translate(calc(100vw * var(--tx, 0.5)), calc(100vh * var(--ty, -0.5))); opacity: 0.1; }
 }
 
 .corner-feather {
@@ -92,7 +120,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 90px 22px;
-  transition: filter 0.6s ease, opacity 0.6s ease;
+  transition: filter 0.6s ease, opacity 0.6s ease, height 0.6s ease;
 }
 .stage.locked {
   filter: blur(14px);
@@ -122,22 +150,25 @@ body {
   color: var(--lotus);
 }
 
-/* ── DIVIDER (lotus + gold hairline) ── */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 22px 0;
-  opacity: 0.55;
-  width: 100%;
-  max-width: 360px;
+.section-title {
+  font-family: var(--font-eyebrow);
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: var(--ivory);
+  text-align: center;
+  margin-bottom: 6px;
 }
-.divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
-.divider-icon { font-size: 14px; }
+.section-sub {
+  font-style: italic;
+  font-size: 15.5px;
+  color: rgba(253,244,230,0.6);
+  text-align: center;
+  max-width: 360px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
 
-/* ══════════════════════════════════════
-   HERO
-══════════════════════════════════════ */
+/* ── CARDS & BUTTONS ── */
 .card {
   width: 100%;
   max-width: 430px;
@@ -152,11 +183,7 @@ body {
 }
 @keyframes cardRise { from { transform: translateY(50px) scale(0.94); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
 
-.bud {
-  font-size: 44px;
-  margin-bottom: 6px;
-  animation: budBreathe 3.2s ease-in-out infinite;
-}
+.bud { font-size: 44px; margin-bottom: 6px; animation: budBreathe 3.2s ease-in-out infinite; }
 @keyframes budBreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
 .name-display {
@@ -214,319 +241,171 @@ body {
   width: auto;
   align-self: center;
   padding: 10px 22px;
-  position: relative;
 }
 
-/* ══════════════════════════════════════
-   GAME — FIVE PETALS
-══════════════════════════════════════ */
-.section-title {
-  font-family: var(--font-eyebrow);
-  font-size: 20px;
-  letter-spacing: 1px;
-  color: var(--ivory);
-  text-align: center;
-  margin-bottom: 6px;
-}
-.section-sub {
-  font-style: italic;
-  font-size: 15.5px;
-  color: rgba(253,244,230,0.6);
-  text-align: center;
-  max-width: 340px;
-  margin-bottom: 32px;
-  line-height: 1.6;
-}
-
-.loyalty-meter {
-  width: 100%;
-  max-width: 320px;
-  margin-bottom: 40px;
-}
+/* ── STAGE 2: FIVE PETALS ── */
+.loyalty-meter { width: 100%; max-width: 320px; margin-bottom: 30px; }
 .loyalty-label {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-eyebrow);
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--gold-soft);
-  margin-bottom: 8px;
-  opacity: 0.8;
+  display: flex; justify-content: space-between;
+  font-family: var(--font-eyebrow); font-size: 9px;
+  letter-spacing: 2px; color: var(--gold-soft); margin-bottom: 8px; opacity: 0.8;
 }
-.loyalty-track {
-  height: 8px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.08);
-  overflow: hidden;
-  border: 1px solid rgba(227,178,60,0.25);
-}
-.loyalty-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--peacock), var(--gold), var(--lotus));
-  transition: width 0.7s cubic-bezier(0.34,1.56,0.64,1);
-}
+.loyalty-track { height: 8px; border-radius: 10px; background: rgba(255,255,255,0.08); overflow: hidden; border: 1px solid rgba(227,178,60,0.25); }
+.loyalty-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--peacock), var(--gold), var(--lotus)); transition: width 0.7s cubic-bezier(0.34,1.56,0.64,1); }
 
-.lotus-game {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin-bottom: 20px;
-}
+.lotus-game { position: relative; width: 280px; height: 280px; margin-bottom: 20px; }
 .lotus-center {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 70px;
-  filter: drop-shadow(0 0 30px rgba(255,111,156,0.3));
-  transition: transform 0.6s ease, filter 0.6s ease;
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 64px; filter: drop-shadow(0 0 30px rgba(255,111,156,0.3)); transition: transform 0.6s ease;
 }
-.lotus-center.bloomed {
-  transform: scale(1.25);
-  filter: drop-shadow(0 0 60px rgba(255,111,156,0.7));
-}
+.lotus-center.bloomed { transform: scale(1.25); filter: drop-shadow(0 0 60px rgba(255,111,156,0.7)); }
 
 .petal-btn {
-  position: absolute;
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
+  position: absolute; width: 56px; height: 56px; border-radius: 50%;
   border: 1px solid rgba(227,178,60,0.35);
   background: radial-gradient(circle at 35% 30%, rgba(255,111,156,0.22), rgba(18,134,124,0.12));
-  color: var(--ivory);
-  font-size: 26px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease, box-shadow 0.35s ease;
+  color: var(--ivory); font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
-.petal-btn:hover:not(.done) { transform: scale(1.14); box-shadow: 0 0 28px rgba(255,111,156,0.45); }
+.petal-btn:hover:not(.done) { transform: scale(1.14); }
 .petal-btn.done { opacity: 0.35; cursor: default; transform: scale(0.85); }
-.petal-btn.p0 { top: 4px;   left: 119px; }
-.petal-btn.p1 { top: 88px;  left: 226px; }
-.petal-btn.p2 { top: 216px; left: 186px; }
-.petal-btn.p3 { top: 216px; left: 52px;  }
-.petal-btn.p4 { top: 88px;  left: 12px;  }
+.petal-btn.p0 { top: 4px; left: 112px; }
+.petal-btn.p1 { top: 80px; left: 210px; }
+.petal-btn.p2 { top: 200px; left: 172px; }
+.petal-btn.p3 { top: 200px; left: 48px; }
+.petal-btn.p4 { top: 80px; left: 10px; }
 
-.continue-wrap { min-height: 60px; display: flex; align-items: center; justify-content: center; margin-top: 10px; }
+.continue-wrap { min-height: 50px; display: flex; align-items: center; justify-content: center; margin-top: 10px; }
 .btn-continue {
-  display: none;
-  padding: 13px 34px;
-  border-radius: 50px;
+  display: none; padding: 12px 30px; border-radius: 50px;
   border: 1px solid rgba(227,178,60,0.5);
   background: linear-gradient(135deg, var(--gold), #c98f22);
-  color: #241200;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  animation: fadeUp 0.9s both;
-  box-shadow: 0 8px 26px rgba(227,178,60,0.35);
+  color: #241200; font-family: var(--font-body); font-weight: 600; font-size: 16px; cursor: pointer;
+  box-shadow: 0 8px 26px rgba(227,178,60,0.35); animation: fadeUp 0.9s both;
 }
-.btn-continue:hover { transform: translateY(-2px); }
 
-/* ── word reveal modal ── */
+/* Modal for word reveal */
 #wordOverlay {
-  position: fixed;
-  inset: 0;
-  z-index: 3000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: rgba(6,2,20,0.82);
-  backdrop-filter: blur(8px);
-  padding: 24px;
+  position: fixed; inset: 0; z-index: 3000; display: none; align-items: center; justify-content: center;
+  background: rgba(6,2,20,0.85); backdrop-filter: blur(8px); padding: 24px;
 }
 .word-card {
-  width: 100%;
-  max-width: 360px;
-  background: linear-gradient(155deg, rgba(255,244,230,0.09), rgba(18,134,124,0.06));
-  border: 1px solid rgba(227,178,60,0.35);
-  border-radius: 26px;
-  padding: 36px 28px;
-  text-align: center;
-  animation: wordIn 0.5s cubic-bezier(0.19,1,0.22,1) both;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  width: 100%; max-width: 360px; background: linear-gradient(155deg, rgba(255,244,230,0.09), rgba(18,134,124,0.06));
+  border: 1px solid rgba(227,178,60,0.35); border-radius: 26px; padding: 36px 28px; text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6); animation: wordIn 0.5s cubic-bezier(0.19,1,0.22,1) both;
 }
 @keyframes wordIn { from { opacity: 0; transform: scale(0.85) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-.word-dev { font-family: var(--font-dev); font-size: 46px; color: var(--lotus); margin-bottom: 6px; }
-.word-translit { font-family: var(--font-eyebrow); font-size: 12px; letter-spacing: 3px; color: var(--gold-soft); text-transform: uppercase; margin-bottom: 14px; }
-.word-meaning { font-size: 20px; font-style: italic; color: var(--ivory); margin-bottom: 10px; }
-.word-desc { font-size: 15px; color: rgba(253,244,230,0.65); line-height: 1.6; margin-bottom: 18px; }
-.word-promise { font-size: 15.5px; color: var(--gold-soft); font-style: italic; border-top: 1px solid rgba(227,178,60,0.2); padding-top: 16px; margin-bottom: 22px; }
-.word-close {
-  padding: 10px 28px;
-  border-radius: 50px;
-  border: 1px solid rgba(255,111,156,0.4);
-  background: rgba(255,111,156,0.12);
-  color: var(--lotus);
-  font-family: var(--font-body);
-  font-size: 15px;
-  cursor: pointer;
-}
-.word-close:hover { background: rgba(255,111,156,0.25); }
+.word-dev { font-family: var(--font-dev); font-size: 42px; color: var(--lotus); margin-bottom: 4px; }
+.word-translit { font-family: var(--font-eyebrow); font-size: 11px; letter-spacing: 3px; color: var(--gold-soft); text-transform: uppercase; margin-bottom: 12px; }
+.word-meaning { font-size: 19px; font-style: italic; color: var(--ivory); margin-bottom: 10px; }
+.word-desc { font-size: 14.5px; color: rgba(253,244,230,0.68); line-height: 1.6; margin-bottom: 16px; }
+.word-promise { font-size: 15px; color: var(--gold-soft); font-style: italic; border-top: 1px solid rgba(227,178,60,0.2); padding-top: 14px; margin-bottom: 20px; }
+.word-close { padding: 10px 26px; border-radius: 50px; border: 1px solid rgba(255,111,156,0.4); background: rgba(255,111,156,0.12); color: var(--lotus); font-family: var(--font-body); font-size: 15px; cursor: pointer; }
 
-/* ══════════════════════════════════════
-   GLOSSARY
-══════════════════════════════════════ */
-.glossary-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  width: 100%;
-  max-width: 420px;
+/* ── STAGE 3: MINI GAMES (Flute Puzzle) ── */
+.minigame-container {
+  width: 100%; max-width: 420px; background: rgba(255,244,230,0.04);
+  border: 1px solid rgba(227,178,60,0.22); border-radius: 22px; padding: 24px; text-align: center; margin-bottom: 20px;
 }
-.gloss-card {
-  background: rgba(255,244,230,0.05);
-  border: 1px solid rgba(227,178,60,0.2);
-  border-radius: 18px;
-  padding: 18px 10px;
-  text-align: center;
+.flute-notes { display: flex; justify-content: center; gap: 10px; margin: 16px 0; }
+.note-btn {
+  width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(227,178,60,0.4);
+  background: rgba(18,134,124,0.2); color: var(--gold-soft); font-family: var(--font-eyebrow); font-size: 14px; cursor: pointer;
+  transition: all 0.2s ease;
 }
+.note-btn:hover { background: rgba(18,134,124,0.5); transform: scale(1.08); }
+.note-btn.active { background: var(--lotus); color: #fff; border-color: var(--lotus); }
+
+/* ── STAGE 4: GLOSSARY ── */
+.glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; max-width: 420px; }
+.gloss-card { background: rgba(255,244,230,0.05); border: 1px solid rgba(227,178,60,0.2); border-radius: 18px; padding: 18px 10px; text-align: center; }
 .gloss-dev { font-family: var(--font-dev); font-size: 26px; color: var(--lotus); margin-bottom: 4px; }
 .gloss-translit { font-family: var(--font-eyebrow); font-size: 8px; letter-spacing: 1.5px; color: var(--gold-soft); text-transform: uppercase; margin-bottom: 6px; }
 .gloss-meaning { font-size: 13.5px; font-style: italic; color: rgba(253,244,230,0.75); }
 
-/* ══════════════════════════════════════
-   GALLERY (images + video)
-══════════════════════════════════════ */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  width: 100%;
-  max-width: 440px;
-  margin-bottom: 26px;
-}
+/* ── STAGE 5: GALLERY & VIDEO ── */
+.gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; width: 100%; max-width: 440px; margin-bottom: 26px; }
 .gallery-slot {
-  aspect-ratio: 3/4;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(227,178,60,0.22);
-  background: rgba(255,244,230,0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  aspect-ratio: 3/4; border-radius: 18px; overflow: hidden; border: 1px solid rgba(227,178,60,0.22);
+  background: rgba(255,244,230,0.04); display: flex; align-items: center; justify-content: center; position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .gallery-slot:hover { transform: scale(1.03); box-shadow: 0 0 30px rgba(255,111,156,0.3); }
 .gallery-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.slot-placeholder {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  color: rgba(253,244,230,0.35); font-style: italic; font-size: 11.5px; text-align: center; padding: 14px;
-}
+.slot-placeholder { display: flex; flex-direction: column; align-items: center; gap: 6px; color: rgba(253,244,230,0.35); font-style: italic; font-size: 11.5px; text-align: center; padding: 14px; }
 .slot-num { font-family: var(--font-eyebrow); font-size: 9px; color: rgba(227,178,60,0.4); margin-bottom: 2px; }
 
 .video-slot {
-  width: 100%;
-  max-width: 420px;
-  aspect-ratio: 16/10;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgba(227,178,60,0.22);
-  background: rgba(255,244,230,0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  width: 100%; max-width: 420px; aspect-ratio: 16/10; border-radius: 20px; overflow: hidden;
+  border: 1px solid rgba(227,178,60,0.22); background: rgba(255,244,230,0.04); display: flex; align-items: center; justify-content: center; position: relative;
 }
 .video-slot video { width: 100%; height: 100%; object-fit: cover; display: none; }
 .video-slot.has-video video { display: block; }
 .video-slot.has-video .slot-placeholder { display: none; }
 
-/* ══════════════════════════════════════
-   POEM
-══════════════════════════════════════ */
-.poem-box {
-  background: linear-gradient(155deg, rgba(255,244,230,0.05), rgba(18,134,124,0.05));
-  border: 1px solid rgba(227,178,60,0.2);
-  border-radius: 22px;
-  padding: 32px 26px;
-  max-width: 400px;
-  text-align: center;
+/* ── STAGE 6: SANSKRIT VERSES ── */
+.verse-box {
+  background: linear-gradient(155deg, rgba(255,244,230,0.06), rgba(18,134,124,0.06));
+  border: 1px solid rgba(227,178,60,0.25); border-radius: 22px; padding: 28px 24px; max-width: 420px; text-align: center; margin-bottom: 18px;
 }
-.poem-line { font-style: italic; font-size: 16.5px; line-height: 2; color: rgba(253,244,230,0.88); }
-.poem-line.dev { font-style: normal; font-size: 18px; color: var(--lotus); }
-.poem-div { font-size: 13px; color: var(--gold-soft); margin: 12px 0; opacity: 0.6; }
+.verse-sanskrit { font-family: var(--font-dev); font-size: 20px; color: var(--lotus); line-height: 1.8; margin-bottom: 10px; }
+.verse-translit { font-family: var(--font-eyebrow); font-size: 11px; letter-spacing: 2px; color: var(--gold-soft); margin-bottom: 10px; font-style: italic; }
+.verse-trans { font-size: 15px; font-style: italic; color: rgba(253,244,230,0.85); line-height: 1.6; }
 
-/* ══════════════════════════════════════
-   VOW / FINALE
-══════════════════════════════════════ */
+/* ── STAGE 7: UNCONDITIONAL LOVE POEM (SANSKRIT + TRANSLATION) ── */
+.poem-box {
+  background: linear-gradient(155deg, rgba(255,244,230,0.06), rgba(18,134,124,0.06));
+  border: 1px solid rgba(227,178,60,0.3); border-radius: 24px; padding: 36px 28px; max-width: 440px; text-align: center;
+}
+.poem-stanza { margin-bottom: 24px; }
+.poem-stanza:last-child { margin-bottom: 0; }
+.poem-sanskrit { font-family: var(--font-dev); font-size: 19px; color: var(--lotus); line-height: 1.8; margin-bottom: 4px; }
+.poem-translit { font-family: var(--font-eyebrow); font-size: 10px; letter-spacing: 2px; color: var(--gold-soft); margin-bottom: 6px; }
+.poem-trans { font-style: italic; font-size: 16px; color: rgba(253,244,230,0.9); line-height: 1.6; }
+.poem-div { font-size: 13px; color: var(--gold-soft); margin: 16px 0; opacity: 0.6; }
+
 .flute-icon { width: 70px; height: 70px; margin-bottom: 6px; opacity: 0.85; }
 .vow-name { font-family: var(--font-name); font-size: 50px; color: var(--lotus); text-shadow: 0 0 40px rgba(255,111,156,0.5); margin-bottom: 6px; }
-.vow-text {
-  max-width: 380px;
-  text-align: center;
-  font-style: italic;
-  font-size: 18px;
-  line-height: 1.85;
-  color: rgba(253,244,230,0.9);
-  margin: 18px 0 30px;
-}
-.vow-text .dev { font-style: normal; }
-.seal {
-  font-family: var(--font-eyebrow);
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--gold);
-  border: 1px solid rgba(227,178,60,0.4);
-  border-radius: 50px;
-  padding: 10px 26px;
-  margin-bottom: 40px;
-}
-.footer-credit {
-  font-size: 12px;
-  color: rgba(253,244,230,0.3);
-  font-style: italic;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
+.vow-text { max-width: 380px; text-align: center; font-style: italic; font-size: 18px; line-height: 1.85; color: rgba(253,244,230,0.9); margin: 18px 0 30px; }
+.seal { font-family: var(--font-eyebrow); font-size: 11px; letter-spacing: 3px; color: var(--gold); border: 1px solid rgba(227,178,60,0.4); border-radius: 50px; padding: 10px 26px; margin-bottom: 40px; }
+.footer-credit { font-size: 12px; color: rgba(253,244,230,0.3); font-style: italic; text-align: center; letter-spacing: 0.5px; }
 
-/* ── float / firework finale (reused) ── */
+/* Floating celebration items */
 .float-item { position: fixed; pointer-events: none; animation: floatUp linear both; z-index: 1500; }
 @keyframes floatUp { from { transform: translateY(0) rotate(0deg); opacity: 0.9; } to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
 .fw { position: fixed; width: 5px; height: 5px; border-radius: 50%; pointer-events: none; animation: fwExplode 1.2s ease-out forwards; z-index: 1600; }
 @keyframes fwExplode { to { transform: translate(var(--fx), var(--fy)) scale(0); opacity: 0; } }
 
-@keyframes fadeUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-/* ── sound toggle ── */
+/* Sound toggle & Audio Visualizer */
+#soundControls {
+  position: fixed; bottom: 20px; right: 20px; z-index: 4000; display: flex; align-items: center; gap: 8px;
+}
 #soundToggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 4000;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 1px solid rgba(227,178,60,0.35);
-  background: rgba(10,4,32,0.65);
-  backdrop-filter: blur(10px);
-  color: var(--gold-soft);
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(227,178,60,0.35);
+  background: rgba(10,4,32,0.65); backdrop-filter: blur(10px); color: var(--gold-soft); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
 }
-
-/* ── ghost / ambush "no" page reuses inline styles, none needed here ── */
-
-/* ── responsive tightening ── */
-@media (max-width: 380px) {
-  .lotus-game { transform: scale(0.86); }
-  .glossary-grid { max-width: 340px; }
+.audio-visualizer {
+  display: flex; align-items: flex-end; gap: 3px; height: 24px; padding: 0 8px; background: rgba(10,4,32,0.65); border: 1px solid rgba(227,178,60,0.25); border-radius: 20px; backdrop-filter: blur(10px);
 }
+.bar { width: 3px; background: var(--lotus); border-radius: 2px; animation: soundBar 1.2s ease-in-out infinite alternate; }
+.bar:nth-child(2) { animation-delay: 0.2s; background: var(--gold); }
+.bar:nth-child(3) { animation-delay: 0.4s; background: var(--peacock); }
+@keyframes soundBar { 0% { height: 4px; } 100% { height: 20px; } }
+
+@keyframes fadeUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 </style>
 </head>
 <body>
 
-<!-- ambient corner peacock feathers -->
+<!-- Cinematic Loader -->
+<div id="loader">
+  <div class="loader-lotus">🪷</div>
+  <div class="loader-text">Awakening the Lotus Pond...</div>
+  <div class="loader-bar-track"><div class="loader-bar-fill" id="loaderBar"></div></div>
+</div>
+
+<!-- Ambient Corner Feathers -->
 <svg class="corner-feather tl" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
   <path d="M60 10 C90 60 95 140 60 210 C25 140 30 60 60 10 Z" fill="none" stroke="#12867c" stroke-width="2"/>
   <ellipse cx="60" cy="70" rx="18" ry="26" fill="#e3b23c" opacity="0.5"/>
@@ -561,7 +440,7 @@ body {
 </section>
 
 <!-- ════════════════════════════════════
-     STAGE 2 — THE GAME: FIVE PETALS
+     STAGE 2 — FIVE PETALS GAME
 ════════════════════════════════════ -->
 <section id="stage-game" class="stage locked">
   <div class="eyebrow">निष्ठाको खेल • A Small Test of Loyalty</div>
@@ -587,7 +466,7 @@ body {
   </div>
 </section>
 
-<!-- word reveal overlay -->
+<!-- Word Reveal Overlay -->
 <div id="wordOverlay">
   <div class="word-card">
     <div class="word-dev" id="wDev"></div>
@@ -600,17 +479,42 @@ body {
 </div>
 
 <!-- ════════════════════════════════════
-     STAGE 3 — GLOSSARY
+     STAGE 3 — KRISHNA FLUTE NOTE PUZZLE
+════════════════════════════════════ -->
+<section id="stage-puzzle" class="stage locked">
+  <div class="eyebrow">वंशी ध्वनि • The Flute Melody</div>
+  <div class="section-title">Harmonize the Flute</div>
+  <div class="section-sub">Play the correct 3-note melody of Vrindavan devotion to open the next gateway.</div>
+  
+  <div class="minigame-container">
+    <p style="font-style:italic; font-size:15px; color:var(--gold-soft); margin-bottom:10px;">Hint: Sa (1) — Pa (3) — Ni (5)</p>
+    <div class="flute-notes">
+      <button class="note-btn" onclick="playNote(1)">Sa</button>
+      <button class="note-btn" onclick="playNote(2)">Re</button>
+      <button class="note-btn" onclick="playNote(3)">Pa</button>
+      <button class="note-btn" onclick="playNote(4)">Dha</button>
+      <button class="note-btn" onclick="playNote(5)">Ni</button>
+    </div>
+    <p id="puzzleStatus" style="font-size:14px; color:rgba(253,244,230,0.8); margin-top:10px;">Melody: [ _ - _ - _ ]</p>
+  </div>
+  <button class="btn-continue" id="puzzleContinue" style="display:none; margin-top:10px;" onclick="unlock('stage-glossary')">Melody Aligned 🪷 Continue</button>
+</section>
+
+<!-- ════════════════════════════════════
+     STAGE 4 — GLOSSARY
 ════════════════════════════════════ -->
 <section id="stage-glossary" class="stage locked">
   <div class="eyebrow">प्रेमका शब्दहरू</div>
   <div class="section-title">Words of Love You Just Collected</div>
   <div class="section-sub">Five old words. Every one still describes exactly what I feel for you.</div>
-  <div class="glossary-grid" id="glossaryGrid"><!-- filled by script --></div>
+  <div class="glossary-grid" id="glossaryGrid"></div>
+  <div style="margin-top: 30px;">
+    <button class="btn-continue" style="display:inline-block;" onclick="unlock('stage-gallery')">View Our Moments 🪷</button>
+  </div>
 </section>
 
 <!-- ════════════════════════════════════
-     STAGE 4 — GALLERY (images + video)
+     STAGE 5 — GALLERY (IMAGES + VIDEO)
 ════════════════════════════════════ -->
 <section id="stage-gallery" class="stage locked">
   <div class="eyebrow">हाम्रा क्षणहरू</div>
@@ -618,14 +522,6 @@ body {
   <div class="section-sub">Every picture, a story of why I fell for you.</div>
 
   <div class="gallery-grid" id="galleryGrid">
-    <!--
-      ══════════════════════════════════════════════
-      6 PHOTO SLOTS.
-      Don't edit this HTML — put your photo paths in the
-      CONFIG.IMAGES list inside <script> at the bottom, and
-      these six boxes fill in themselves automatically.
-      ══════════════════════════════════════════════
-    -->
     <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">01</div>🌸<br>photo 1</div></div>
     <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">02</div>🌷<br>photo 2</div></div>
     <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">03</div>🌹<br>photo 3</div></div>
@@ -634,43 +530,72 @@ body {
     <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">06</div>🌸<br>photo 6</div></div>
   </div>
 
-  <!--
-    ══════════════════════════════════════════════
-    ONE VIDEO SLOT.
-    Same idea — put the path in CONFIG.VIDEO in <script>,
-    leave it as "" to keep the placeholder showing.
-    ══════════════════════════════════════════════
-  -->
   <div class="video-slot" id="videoSlot">
     <video id="theVideo" controls playsinline></video>
     <div class="slot-placeholder">🎞️<br>your video</div>
   </div>
-</section>
-
-<!-- ════════════════════════════════════
-     STAGE 5 — POEM
-════════════════════════════════════ -->
-<section id="stage-poem" class="stage locked">
-  <div class="eyebrow">❧ मेरो मनको कविता ❧</div>
-  <div class="poem-box">
-    <div class="poem-line dev">तिम्रो आँखामा डुब्दा,</div>
-    <div class="poem-line">I forget every word but your name.</div>
-    <div class="poem-div">🪷</div>
-    <div class="poem-line dev">एउटा <span class="dev">सख्य</span>, एउटा <span class="dev">भक्ति</span> —</div>
-    <div class="poem-line">a friendship and a devotion, both at once.</div>
-    <div class="poem-div">🪷</div>
-    <div class="poem-line">The world is loud and vast —</div>
-    <div class="poem-line dev">तर तिमीसँग हुँदा,</div>
-    <div class="poem-line">it turns as still as a lotus pond.</div>
-    <div class="poem-div">🪷</div>
-    <div class="poem-line dev">मैले धेरै सपना देखेको थिएँ,</div>
-    <div class="poem-line">but ever since I met you,</div>
-    <div class="poem-line">I only dream of you. 🪷</div>
+   <div style="margin-top: 30px;">
+    <button class="btn-continue" style="display:inline-block;" onclick="unlock('stage-verses')">Continue to Sanskrit Verses 🪷</button>
   </div>
 </section>
 
 <!-- ════════════════════════════════════
-     STAGE 6 — FINAL VOW
+     STAGE 6 — AUTHENTIC SANSKRIT VERSES
+════════════════════════════════════ -->
+<section id="stage-verses" class="stage locked">
+  <div class="eyebrow">संस्कृत श्लोकहरू • Sacred Verses</div>
+  <div class="section-title">Echoes of Ancient Devotion</div>
+  <div class="section-sub">Timeless Sanskrit wisdom reflecting pure affection and eternal bonds.</div>
+
+  <div class="verse-box">
+    <div class="verse-sanskrit">यत्र नार्यस्तु पूज्यन्ते रमन्ते तत्र देवताः</div>
+    <div class="verse-translit">Yatra nāryastu pūjyante ramante tatra devatāḥ</div>
+    <div class="verse-trans">"Where feminine grace and honor reside, divine joy and serenity dwell."</div>
+  </div>
+
+  <div class="verse-box">
+    <div class="verse-sanskrit">चित्तस्य शुद्धये कर्म न तु कामोपबृंहणम्</div>
+    <div class="verse-translit">Cittasya śuddhaye karma na tu kāmopabṛṁhaṇam</div>
+    <div class="verse-trans">"Pure devotion cleanses the heart, anchoring feelings in unconditional truth. (Original Composition)"</div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <button class="btn-continue" style="display:inline-block;" onclick="unlock('stage-poem')">Read Poetry 🪷</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     STAGE 7 — UNCONDITIONAL LOVE POEM
+════════════════════════════════════ -->
+<section id="stage-poem" class="stage locked">
+  <div class="eyebrow">❧ अहैतुकं प्रेम • Unconditional Devotion ❧</div>
+  <div class="poem-box">
+    <div class="poem-stanza">
+      <div class="poem-sanskrit">न अपेक्षते फलं किञ्चित् न काङ्क्षति सुखं क्वचित्।</div>
+      <div class="poem-translit">Na apekṣate phalaṁ kiñcit na kāṅkṣati sukhaṁ kvacit</div>
+      <div class="poem-trans">"It looks for no reward, nor asks for fleeting comfort anywhere."</div>
+    </div>
+    <div class="poem-div">🪷</div>
+    <div class="poem-stanza">
+      </div>
+     class="poem-sanskrit">केवलं तव रूपेण मग्नं मे हृदयम् सदा।</div>
+      <div class="poem-translit">Kevalaṁ tava rūpeṇa magnaṁ me hṛdayam sadā</div>
+      <div class="poem-trans">"My heart remains forever immersed in your grace alone."</div>
+    </div>
+    <div class="poem-div">🪷</div>
+    <div class="poem-stanza">
+      <div class="poem-sanskrit">यथा सिन्धुः सदा पूर्णः न शोषं याति कस्यचित्।</div>
+      <div class="poem-translit">Yathā sindhuḥ sadā pūrṇaḥ na śoṣaṁ yāti kasyacit</div>
+      <div class="poem-trans">"Like an ocean ever full, my devotion never dries up or fades."</div>
+    </div>
+  </div>
+  <div style="margin-top: 30px;">
+    <button class="btn-continue" style="display:inline-block;" onclick="unlock('stage-vow'); celebrate();">Final Vow 🪷</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     STAGE 8 — FINAL VOW
 ════════════════════════════════════ -->
 <section id="stage-vow" class="stage locked">
   <svg class="flute-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -687,45 +612,67 @@ body {
     that is the kind of loyal I choose to be, for you, one ordinary day at a time. 🪷
   </div>
   <div class="seal">SEALED WITH निष्ठा — LOYALTY</div>
-  <div class="footer-credit">handcrafted, one late night at a time — by Dipesh Kharel</div>
+  <div class="footer-credit">Handcrafted with boundless devotion — by Dipesh Kharel</div>
 </section>
 
-<!-- ONE PLACE FOR MUSIC — see CONFIG.MUSIC below -->
-<audio id="bgMusic" loop preload="auto"></audio>
-<button id="soundToggle" title="sound">🔈</button>
+<!-- Background Audio & Controls -->
+<audio id="bgMusic" loop preload="auto" autoplay></audio>
+<div id="soundControls">
+  <div class="audio-visualizer" id="visualizer" style="display:none;">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+  <button id="soundToggle" title="Toggle Sound">🔈</button>
+</div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   ✦ CONFIG — THE ONLY PLACE YOU NEED TO EDIT ✦
-   Fill these in, save the file, done. Nothing else in this
-   script needs to change.
+   ✦ CONFIG — EDIT HERE TO PERSONALIZE ✦
    ═══════════════════════════════════════════════════════════ */
 const CONFIG = {
-  // Her name — shown on the hero card and on the final page.
   HER_NAME: "Her Name",
-
-  // ONE music file, kept in one place, played from the root of
-  // your project folder. Example: "music/our-song.mp3"
-  // Put the file next to this index.html (or in a subfolder) and
-  // write its path here. Leave empty ("") for no music.
-  MUSIC: "music/song.mp3",
-
-  // Six photos for the gallery grid. Leave any entry as "" to
-  // keep that box showing its placeholder instead.
+  MUSIC: "VID_20260731_211319.mp4", // Configured to your root repository video file as background audio
   IMAGES: [
-    "",  // photo 1
-    "",  // photo 2
-    "",  // photo 3
-    "",  // photo 4
-    "",  // photo 5
-    ""   // photo 6
+    "", // photo 1
+    "", // photo 2
+    "", // photo 3
+    "", // photo 4
+    "", // photo 5
+    ""  // photo 6
   ],
-
-  // One video for the video box. Leave "" for the placeholder.
   VIDEO: ""
 };
 
-/* ═══════════════════ apply CONFIG to the page ═══════════════════ */
+/* ── CINEMATIC LOADER LOGIC ── */
+window.addEventListener('DOMContentLoaded', () => {
+  const bar = document.getElementById('loaderBar');
+  const loader = document.getElementById('loader');
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 15) + 5;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      setTimeout(() => loader.classList.add('fade-out'), 400);
+    }
+    bar.style.width = progress + '%';
+  }, 120);
+
+  // Spawn fireflies
+  for (let i = 0; i < 18; i++) {
+    const f = document.createElement('div');
+    f.className = 'firefly';
+    f.style.left = Math.random() * 100 + 'vw';
+    f.style.top = Math.random() * 100 + 'vh';
+    f.style.setProperty('--tx', (Math.random() - 0.5));
+    f.style.setProperty('--ty', (Math.random() - 0.5));
+    f.style.animationDuration = (6 + Math.random() * 6) + 's';
+    document.body.appendChild(f);
+     }
+});
+
+/* ── APPLY CONFIG ── */
 document.querySelectorAll('[data-name-slot]').forEach(el => {
   el.textContent = CONFIG.HER_NAME || "Her Name";
 });
@@ -748,7 +695,7 @@ if (CONFIG.VIDEO) {
   document.getElementById('videoSlot').classList.add('has-video');
 }
 
-/* ═══════════════════ ambient falling petals ═══════════════════ */
+/* ── AMBIENT PETALS ── */
 function spawnPetal() {
   const p = document.createElement('div');
   p.className = 'petal';
@@ -762,33 +709,54 @@ function spawnPetal() {
 }
 setInterval(spawnPetal, 450);
 
-/* ═══════════════════ music — one place, autoplay + loop ═══════════════════
-   Browsers block audio with sound from starting completely on its own —
-   they require at least one interaction with the page first. This code
-   tries to autoplay the instant the page opens, and if the browser blocks
-   that, it starts on the very first tap/click/scroll anywhere on the page,
-   so no one has to find and press a play button.
-*/
+/* ── AUDIO MANAGEMENT (Auto-play force) ── */
 const music = document.getElementById('bgMusic');
 const soundToggle = document.getElementById('soundToggle');
+const visualizer = document.getElementById('visualizer');
+
 if (CONFIG.MUSIC) {
   music.src = CONFIG.MUSIC;
-  const tryPlay = () => music.play().then(() => { soundToggle.textContent = '🔊'; }).catch(() => {});
-  window.addEventListener('load', tryPlay);
-  ['click','touchstart','scroll','keydown'].forEach(evt =>
-    window.addEventListener(evt, tryPlay, { once: true, passive: true })
+  music.autoplay = true;
+  music.muted = false;
+
+  const triggerPlay = () => {
+    music.play().then(() => {
+      soundToggle.textContent = '🔊';
+      visualizer.style.display = 'flex';
+    }).catch(err => {
+      // Browsers restrict unmuted audio autoplay before user interaction; 
+      // this triggers on the absolute first touch/click/scroll/keypress event.
+    });
+  };
+
+  // Attempt instant autoplay on load
+  window.addEventListener('DOMContentLoaded', triggerPlay);
+  window.addEventListener('load', triggerPlay);
+
+  // Instant fallback on any user interaction if browser policy blocks programmatic autoplay
+  ['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(evt =>
+    window.addEventListener(evt, triggerPlay, { once: true, passive: true })
   );
 } else {
   soundToggle.style.display = 'none';
 }
+
 soundToggle.addEventListener('click', () => {
-  if (music.paused) { music.play(); soundToggle.textContent = '🔊'; }
-  else { music.pause(); soundToggle.textContent = '🔈'; }
+  if (music.paused) {
+    music.play();
+    soundToggle.textContent = '🔊';
+    visualizer.style.display = 'flex';
+  } else {
+    music.pause();
+    soundToggle.textContent = '🔈';
+    visualizer.style.display = 'none';
+  }
 });
 
-/* ═══════════════════ stage unlocking ═══════════════════ */
+/* ── STAGE UNLOCKING HELPER ── */
 function unlock(id) {
   const el = document.getElementById(id);
+  if (!el) return;
   el.classList.remove('locked');
   el.classList.add('unlocked');
   setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
@@ -836,9 +804,9 @@ noBtn.addEventListener('click', () => {
   noStage = Math.min(noStage + 1, noTexts.length - 1);
   noBtn.textContent = noTexts[noStage];
   dodge();
-});
+   });
 
-/* ═══════════════════ the petal game ═══════════════════ */
+/* ── FIVE PETALS GAME LOGIC ── */
 const LOVE_WORDS = [
   { dev: "प्रेम", translit: "Prema", meaning: "Pure Love", desc: "The gentlest old word for love — the kind that expects nothing back.", promise: "I promise a love that isn't kept in any account book." },
   { dev: "स्नेह", translit: "Sneha", meaning: "Tender Affection", desc: "It also just means 'oil' — the same oil that keeps a small lamp burning steady, without flickering out.", promise: "I promise the quiet, steady kind of care that never runs out." },
@@ -893,16 +861,26 @@ document.getElementById('wClose').addEventListener('click', () => {
 });
 
 continueBtn.addEventListener('click', () => {
-  unlock('stage-glossary');
-  setTimeout(() => unlock('stage-gallery'), 400);
-  setTimeout(() => unlock('stage-poem'), 800);
-  setTimeout(() => {
-    unlock('stage-vow');
-    celebrate();
-  }, 1200);
+  unlock('stage-puzzle');
 });
 
-/* ═══════════════════ finale celebration ═══════════════════ */
+/* ── FLUTE PUZZLE LOGIC 3-note melody: 1, 3, 5 ── */
+let currentMelody = [];
+const targetMelody = [1, 3, 5];
+function playNote(n) {
+  currentMelody.push(n);
+  if (currentMelody.length > 3) currentMelody.shift();
+  
+  const displayStr = currentMelody.map(x => ['Sa','Re','Pa','Dha','Ni'][x-1]).join(' - ');
+  document.getElementById('puzzleStatus').textContent = `Melody: [ ${displayStr} ]`;
+
+  if (currentMelody.length === 3 && currentMelody.every((val, idx) => val === targetMelody[idx])) {
+    document.getElementById('puzzleStatus').textContent = "✨ Melody Harmonized Successfully! ✨";
+    document.getElementById('puzzleContinue').style.display = 'inline-block';
+  }
+}
+
+/* ── FINALE CELEBRATION ── */
 function floatLove() {
   const el = document.createElement('div');
   el.className = 'float-item';
@@ -937,3 +915,8 @@ function celebrate() {
 </script>
 </body>
 </html>
+
+});
+  }
+});
+         

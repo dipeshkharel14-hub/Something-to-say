@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sacred Lotus — Proposal Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #02060d;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+        }
+
+        #webgl-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Cinematic Vignette Overlay */
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            background: radial-gradient(circle at center, transparent 48%, rgba(2, 6, 13, 0.45) 78%, rgba(1, 3, 7, 0.92) 100%);
+        }
+    </style>
+
+    <!-- Import Three.js and OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+
+    <div id="webgl-container"></div>
+    <div class="vignette"></div>
+
+    <script type="module">
+        // =========================================================================
+        //  CONFIG & CUSTOMIZATION
+        // =========================================================================
+        const CONFIG = {
+            authorName: "By Dipesh Kharel",
+            
+            // English Heavy Proposal texts for surrounding 360-degree background ring
+            proposalTexts: [
+                {
+                    line1: "In this infinite expanse of time & space",
+                    line2: "Will you walk this eternal journey with me?",
+                    sub: "— By Dipesh Kharel"
+                },
+                {
+                    line1: "My soul has searched lifetimes for you",
+                    line2: "Be my forever in this endless universe",
+                    sub: "— By Dipesh Kharel"
+                },
+                {
+                    line1: "Like the lotus blooming in quiet waters",
+                    line2: "You bring grace and light to my world",
+                    sub: "Will you marry me? — By Dipesh Kharel"
+                },
+                {
+                    line1: "You are the poetry my heart always wrote",
+                    line2: "Walk with me into eternity",
+                    sub: "— By Dipesh Kharel"
+                }
+            ],
+
+            petalLayers: 4,
+            petalsPerLayer: [6, 8, 10, 12],
+            leafCount: 7,
+            fishCount: 6,
+            bloomDuration: 7.5
+        };
+
+        // --- APP STATE ---
+        let scene, camera, renderer, controls;
+        let clock = new THREE.Clock();
+        let lotusGroup, petals = [], leaves = [];
+        let waterMaterial, waterMesh;
+        let ambientParticles, starsMesh;
+        let skyPanelsGroup;
+        let swimmingFishes = [], jumpingFish;
+        
+        // Bloom & Camera State
+        let bloomTime = 0;
+        let camTarget = new THREE.Vector3(0, 0.45, 0);
+
+        // --- WATER GLSL SHADER ---
+        const WaterShader = {
+            vertexShader: `
+                uniform float uTime;
+                varying vec3 vWorldPosition;
+                varying vec3 vNormal;
+                varying vec2 vUv;
+
+                void main() {
+                    vUv = uv;
+                    vec3 pos = position;
+
+                    float wave1 = sin(pos.x * 0.14 + pos.z * 0.09 + uTime * 1.0) * 0.05;
+                    float wave2 = cos(pos.x * 0.16 - pos.z * 0.20 + uTime * 0.75) * 0.035;
+                    float wave3 = sin(pos.x * 0.35 + pos.z * 0.25 + uTime * 1.2) * 0.012;
+                    pos.y += wave1 + wave2 + wave3;
+
+                    vec4 worldPos = modelMatrix * vec4(pos, 1.0);
+                    vWorldPosition = worldPos.xyz;
+
+                    float dx = cos(pos.x * 0.14 + pos.z * 0.09 + uTime * 1.0) * 0.007;
+                    float dz = cos(pos.x * 0.16 - pos.z * 0.20 + uTime * 0.75) * -0.007;
+                    vNormal = normalize(vec3(-dx, 1.0, -dz));
+
+                    gl_Position = projectionMatrix * viewMatrix * worldPos;
+                }
+            `,
+            fragmentShader: `
+                uniform vec3 uCameraPosition;
+                uniform vec3 uLightDir;
+                uniform float uTime;
+
+                varying vec3 vWorldPosition;
+                varying vec3 vNormal;
+                varying vec2 vUv;
+
+                void main() {
+                    vec3 viewDir = normalize(uCameraPosition - vWorldPosition);
+                    vec3 normal = normalize(vNormal);
+
+                    float fresnel = pow(1.0 - max(dot(viewDir, normal), 0.0), 3.0);
+
+                    vec3 deepWater = vec3(0.01, 0.05, 0.10);
+                    vec3 shallowWater = vec3(0.02, 0.14, 0.20);
+                    vec3 skyReflection = vec3(0.22, 0.45, 0.70);
+
+                    vec3 baseColor = mix(deepWater, shallowWater, fresnel * 0.5 + 0.5);
+
+                    vec3 halfDir = normalize(uLightDir + viewDir);
+                    float spec = pow(max(dot(normal, halfDir), 0.0), 180.0);
+                    vec3 specular = vec3(1.0, 0.95, 0.88) * spec * 2.6;
+
+                    vec3 finalColor = mix(baseColor, skyReflection, fresnel * 0.65) + specular;
+                    gl_FragColor = vec4(finalColor, 0.88); // Semi-transparent for viewing underwater fish
+                }
+            ` };
+
+        function getResponsiveCamDistance() {
+            const isMobile = window.innerWidth < 768 || window.innerHeight > window.innerWidth;
+            return isMobile ? 13.5 : 9.5;
+        }
+
+        function getResponsiveFOV() {
+            const isMobile = window.innerWidth < 768 || window.innerHeight > window.innerWidth;
+            return isMobile ? 44 : 35;
+        }
+
+        // --- INIT SCENE ---
+        function init() {
+            const container = document.getElementById('webgl-container');
+
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x02060d, 0.012);
+
+            const initialDist = getResponsiveCamDistance();
+            camera = new THREE.PerspectiveCamera(getResponsiveFOV(), window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 2.2, initialDist);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.3;
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.04;
+            controls.maxPolarAngle = Math.PI / 2 - 0.01;
+            controls.minDistance = 4.0;
+            controls.maxDistance = 28;
+            controls.target.copy(camTarget);
+
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 1.2;
+
+            setupLighting();
+            createWater();
+            createLotus();
+            createLeaves();
+            createFishSystem();
+            create360RingProposalSky();
+            createAmbientMist();
+
+            window.addEventListener('resize', onWindowResize);
+
+            animate();
+      }

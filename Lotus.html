@@ -522,4 +522,713 @@ body {
     </div>
   </div>
 </section>
-    
+    <!-- Beautiful Waiting Overlay Modal ("Let me think") -->
+<div id="maybeModal">
+  <div class="word-card">
+    <div style="font-size: 50px; margin-bottom: 10px;">🪷</div>
+    <div class="word-dev">तिम्रो 'हो' को प्रतीक्षामा</div>
+    <div class="word-translit">I Will Patiently Wait</div>
+    <div class="word-meaning">Take all the time your heart needs…</div>
+    <div class="word-desc">
+      The lotus blooms only when the moonlight touches it gently. <br><br>
+      No rush, no conditions, no doubt — I will gladly wait until your sweet <strong>"Yes"</strong>, today, tomorrow, and for all time.
+    </div>
+    <div class="word-promise">
+      — By Dipesh Kharel
+    </div>
+    <button class="word-close" onclick="document.getElementById('maybeModal').style.display='none'">I am ready now 🪷</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     STAGE 2 — FIVE PETALS GAME
+════════════════════════════════════ -->
+<section id="stage-game" class="stage locked">
+  <div class="eyebrow">निष्ठाको खेल • A Small Test of Loyalty</div>
+  <div class="section-title">Five Petals, Five Promises</div>
+  <div class="section-sub">Open each petal. Every one holds an old Sanskrit word for love — and a promise I'm making to you.</div>
+
+  <div class="loyalty-meter">
+    <div class="loyalty-label"><span>NIṢṬHĀ • LOYALTY</span><span id="loyaltyCount">0 / 5</span></div>
+    <div class="loyalty-track"><div class="loyalty-fill" id="loyaltyFill"></div></div>
+  </div>
+
+  <div class="lotus-game">
+    <div class="lotus-center" id="lotusCenter">🪷</div>
+    <button class="petal-btn p0" data-i="0">🌸</button>
+    <button class="petal-btn p1" data-i="1">🌸</button>
+    <button class="petal-btn p2" data-i="2">🌸</button>
+    <button class="petal-btn p3" data-i="3">🌸</button>
+    <button class="petal-btn p4" data-i="4">🌸</button>
+  </div>
+
+  <div class="continue-wrap">
+    <button class="btn-continue" id="continueBtn">The lotus has bloomed 🪷 Continue</button>
+  </div>
+</section>
+
+<!-- Word Reveal Overlay -->
+<div id="wordOverlay">
+  <div class="word-card">
+    <div class="word-dev" id="wDev"></div>
+    <div class="word-translit" id="wTranslit"></div>
+    <div class="word-meaning" id="wMeaning"></div>
+    <div class="word-desc" id="wDesc"></div>
+    <div class="word-promise" id="wPromise"></div>
+    <button class="word-close" id="wClose">Keep this promise</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     STAGE 3 — 3D SACRED LOTUS POND & PROPOSAL SKY (FROM LOTUS.HTML)
+════════════════════════════════════ -->
+<section id="stage-3d-lotus" class="stage locked">
+  <div id="webgl-container"></div>
+  <div class="vignette"></div>
+
+  <div class="lotus-3d-overlay">
+    <div class="lotus-3d-hint">✨ Drag to orbit 360° around the lotus pond ✨</div>
+    <button class="btn-3d-continue" id="lotus3dContinueBtn">Continue Journey 🪷</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     STAGE 4 — KRISHNA FLUTE NOTE PUZZLE
+════════════════════════════════════ -->
+<section id="stage-puzzle" class="stage locked">
+  <div class="eyebrow">वंशी ध्वनि • The Flute Melody</div>
+  <div class="section-title">Harmonize the Flute</div>
+  <div class="section-sub">Play the correct 3-note melody of Vrindavan devotion to open the next gateway.</div>
+  
+  <div class="minigame-container">
+    <p style="font-style:italic; font-size:15px; color:var(--gold-soft); margin-bottom:10px;">Hint: Sa (1) — Pa (3) — Ni (5)</p>
+    <div class="flute-notes">
+      <button class="note-btn" onclick="playNote(1)">Sa</button>
+      <button class="note-btn" onclick="playNote(2)">Re</button>
+      <button class="note-btn" onclick="playNote(3)">Pa</button>
+      <button class="note-btn" onclick="playNote(4)">Dha</button>
+      <button class="note-btn" onclick="playNote(5)">Ni</button>
+    </div>
+    <p id="puzzleStatus" style="font-size:14px; color:rgba(253,244,230,0.8); margin-top:10px;">Melody: [ _ - _ - _ ]</p>
+  </div>
+  <button class="btn-continue" id="puzzleContinue" style="display:none; margin-top:10px;" onclick="unlock('stage-glossary')">Melody Aligned 🪷 Continue</button>
+</section>
+
+<!-- ════════════════════════════════════
+     STAGE 5 — GLOSSARY
+════════════════════════════════════ -->
+<section id="stage-glossary" class="stage locked">
+  <div class="eyebrow">प्रेमका शब्दहरू</div>
+  <div class="section-title">Words of Love You Just Collected</div>
+  <div class="section-sub">Five old words. Every one still describes exactly what I feel for you.</div>
+  <div class="glossary-grid" id="glossaryGrid"></div>
+  <div style="margin-top: 30px;">
+    <button class="btn-continue" style="display:inline-block;" onclick="unlock('stage-gallery')">View Our Moments 🪷</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     STAGE 6 — GALLERY (IMAGES + VIDEO)
+════════════════════════════════════ -->
+<section id="stage-gallery" class="stage locked">
+  <div class="eyebrow">हाम्रा क्षणहरू</div>
+  <div class="section-title">Our Moments</div>
+  <div class="section-sub">Every picture, a story of why I fell for you.</div>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">01</div>🌸<br>photo 1</div></div>
+    <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">02</div>🌷<br>photo 2</div></div>
+    <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">03</div>🌹<br>photo 3</div></div>
+    <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">04</div>🌼<br>photo 4</div></div>
+    <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">05</div>🪷<br>photo 5</div></div>
+    <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-num">06</div>🌸<br>photo 6</div></div>
+  </div>
+
+  <div class="video-slot" id="videoSlot">
+    <video id="theVideo" controls playsinline></video>
+    <div class="slot-placeholder">🎞️<br>your video</div>
+  </div>
+   <div style="margin-top: 30px;">
+    <button class="btn-continue" style="display:inline-block;" onclick="unlock('stage-verses')">Continue to Sanskrit Verses 🪷</button>
+  </div>
+   </section><!-- ════════════════════════════════════
+     STAGE 7 — AUTHENTIC SANSKRIT VERSES
+════════════════════════════════════ -->
+<section id="stage-verses" class="stage locked">
+  <div class="eyebrow">संस्कृत श्लोकहरू • Sacred Verses</div>
+  <div class="section-title">Echoes of Ancient Devotion</div>
+  <div class="section-sub">Timeless Sanskrit wisdom reflecting pure affection and eternal bonds.</div>
+
+  <div class="verse-box">
+    <div class="verse-sanskrit">यत्र नार्यस्तु पूज्यन्ते रमन्ते तत्र देवताः</div>
+    <div class="verse-translit">Yatra nāryastu pūjyante ramante tatra devatāḥ</div>
+    <div class="verse-trans">"Where feminine grace and honor reside, divine joy and serenity dwell."</div>
+  </div>
+
+  <div class="verse-box">
+    <div class="verse-sanskrit">चित्तस्य शुद्धये कर्म न तु कामोपबृंहणम्</div>
+    <div class="verse-translit">Cittasya śuddhaye karma na tu kāmopabṛṁhaṇam</div>
+    <div class="verse-trans">"Pure devotion cleanses the heart, anchoring feelings in unconditional truth. (Original Composition)"</div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <button class="btn-continue" style="display:inline-block;" onclick="unlock('stage-poem')">Read Poetry 🪷</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     STAGE 8 — UNCONDITIONAL LOVE POEM
+════════════════════════════════════ -->
+<section id="stage-poem" class="stage locked">
+  <div class="eyebrow">❧ अहैतुकं प्रेम • Unconditional Devotion ❧</div>
+  <div class="poem-box">
+    <div class="poem-stanza">
+      <div class="poem-sanskrit">न अपेक्षते फलं किञ्चित् न काङ्क्षति सुखं क्वचित्।</div>
+      <div class="poem-translit">Na apekṣate phalaṁ kiñcit na kāङ्कṣati sukhaṁ kvacit</div>
+      <div class="poem-trans">"It looks for no reward, nor asks for fleeting comfort anywhere."</div>
+    </div>
+    <div class="poem-div">🪷</div>
+    <div class="poem-stanza">
+      <div class="poem-sanskrit">केवलं तव रूपेण मग्नं मे हृदयम् सदा।</div>
+      <div class="poem-translit">Kevalaṁ tava rūpeṇa magnaṁ me hṛdayam sadā</div>
+      <div class="poem-trans">"My heart remains forever immersed in your grace alone."</div>
+    </div>
+    <div class="poem-div">🪷</div>
+    <div class="poem-stanza">
+      <div class="poem-sanskrit">यथा सिन्धुः सदा पूर्णः न शोषं याति कस्यचित्।</div>
+      <div class="poem-translit">Yathā sindhuḥ sadā pūrṇaḥ na śoṣaṁ yāti kasyacit</div>
+      <div class="poem-trans">"Like an ocean ever full, my devotion never dries up or fades."</div>
+    </div>
+  </div>
+  <div style="margin-top: 30px;">
+    <button class="btn-continue" style="display:inline-block;" onclick="unlock('stage-vow'); celebrate();">Final Vow 🪷</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     STAGE 9 — FINAL VOW
+════════════════════════════════════ -->
+<section id="stage-vow" class="stage locked">
+  <svg class="flute-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <line x1="15" y1="85" x2="85" y2="15" stroke="#e3b23c" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="35" cy="65" r="2.5" fill="#170b38"/>
+    <circle cx="45" cy="55" r="2.5" fill="#170b38"/>
+    <circle cx="55" cy="45" r="2.5" fill="#170b38"/>
+    <circle cx="65" cy="35" r="2.5" fill="#170b38"/>
+  </svg>
+  <div class="eyebrow">✦ The Lotus Has Bloomed ✦</div>
+  <div class="vow-name" data-name-slot>Her Name</div>
+  <div class="vow-text">
+    Like <span class="dev">सख्य</span> that never breaks and <span class="dev">भक्ति</span> that never tires —
+    that is the kind of loyal I choose to be, for you, one ordinary day at a time. 🪷
+  </div>
+  <div class="seal">SEALED WITH निष्ठा — LOYALTY</div>
+  <div class="footer-credit">Handcrafted with boundless devotion — by Dipesh Kharel</div>
+</section>
+
+<!-- Background Audio & Controls -->
+<audio id="bgMusic" loop preload="auto" autoplay></audio>
+<div id="soundControls">
+  <div class="audio-visualizer" id="visualizer" style="display:none;">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+  <button id="soundToggle" title="Toggle Sound">🔈</button>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   ✦ CONFIG — EDIT HERE TO PERSONALIZE ✦
+   ═══════════════════════════════════════════════════════════ */
+const CONFIG = {
+  HER_NAME: "Her Name",
+  AUTHOR_NAME: "By Dipesh Kharel",
+  MUSIC: "VID_20260731_211319.mp4",
+  IMAGES: [
+    "", // photo 1
+    "", // photo 2
+    "", // photo 3
+    "", // photo 4
+    "", // photo 5
+    ""  // photo 6
+  ],
+  VIDEO: "",
+
+  // Original Lotus.html Proposal texts for surrounding 360-degree background ring
+  proposalTexts: [
+    {
+      line1: "In this infinite expanse of time & space",
+      line2: "Will you walk this eternal journey with me?",
+      sub: "— By Dipesh Kharel"
+    },
+    {
+      line1: "My soul has searched lifetimes for you",
+      line2: "Be my forever in this endless universe",
+      sub: "— By Dipesh Kharel"
+    },
+    {
+      line1: "Like the lotus blooming in quiet waters",
+      line2: "You bring grace and light to my world",
+      sub: "Will you marry me? — By Dipesh Kharel"
+    },
+    {
+      line1: "You are the poetry my heart always wrote",
+      line2: "Walk with me into eternity",
+      sub: "— By Dipesh Kharel"
+    }
+  ],
+
+  // 3D Lotus Scene Parameters
+  petalLayers: 4,
+  petalsPerLayer: [6, 8, 10, 12],
+  leafCount: 7,
+  fishCount: 6,
+  bloomDuration: 7.5
+};
+
+/* ── CINEMATIC LOADER LOGIC ── */
+window.addEventListener('DOMContentLoaded', () => {
+  const bar = document.getElementById('loaderBar');
+  const loader = document.getElementById('loader');
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 15) + 5;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      setTimeout(() => loader.classList.add('fade-out'), 400);
+    }
+    bar.style.width = progress + '%';
+  }, 120);
+
+  // Spawn fireflies
+  for (let i = 0; i < 18; i++) {
+    const f = document.createElement('div');
+    f.className = 'firefly';
+    f.style.left = Math.random() * 100 + 'vw';
+    f.style.top = Math.random() * 100 + 'vh';
+    f.style.setProperty('--tx', (Math.random() - 0.5));
+    f.style.setProperty('--ty', (Math.random() - 0.5));
+    f.style.animationDuration = (6 + Math.random() * 6) + 's';
+    document.body.appendChild(f);
+  }
+});
+
+/* ── APPLY CONFIG ── */
+document.querySelectorAll('[data-name-slot]').forEach(el => {
+  el.textContent = CONFIG.HER_NAME || "Her Name";
+});
+
+const gGrid = document.getElementById('galleryGrid');
+CONFIG.IMAGES.forEach((src, i) => {
+  if (!src) return;
+  const slot = gGrid.children[i];
+  if (!slot) return;
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = 'memory ' + (i + 1);
+  img.onerror = () => img.remove();
+  slot.prepend(img);
+});
+
+if (CONFIG.VIDEO) {
+  const v = document.getElementById('theVideo');
+  v.src = CONFIG.VIDEO;
+  document.getElementById('videoSlot').classList.add('has-video');
+}
+
+/* ── AMBIENT PETALS ── */
+function spawnPetal() {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.textContent = ['🪷','🌸','🍃','✨','💫'][Math.floor(Math.random() * 5)];
+  p.style.left = Math.random() * 100 + 'vw';
+  p.style.animationDuration = (8 + Math.random() * 9) + 's';
+  p.style.animationDelay = (Math.random() * 3) + 's';
+  p.style.fontSize = (12 + Math.random() * 12) + 'px';
+  document.body.appendChild(p);
+  setTimeout(() => p.remove(), 18000);
+}
+setInterval(spawnPetal, 450);
+
+/* ── AUDIO MANAGEMENT ── */
+const music = document.getElementById('bgMusic');
+const soundToggle = document.getElementById('soundToggle');
+const visualizer = document.getElementById('visualizer');
+
+if (CONFIG.MUSIC) {
+  music.src = CONFIG.MUSIC;
+  music.autoplay = true;
+  music.muted = false;
+
+  const triggerPlay = () => {
+    music.play().then(() => {
+      soundToggle.textContent = '🔊';
+      visualizer.style.display = 'flex';
+    }).catch(err => {});
+  };
+
+  window.addEventListener('DOMContentLoaded', triggerPlay);
+  window.addEventListener('load', triggerPlay);
+  ['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(evt =>
+    window.addEventListener(evt, triggerPlay, { once: true, passive: true })
+  );
+} else {
+  soundToggle.style.display = 'none';
+}
+
+soundToggle.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    soundToggle.textContent = '🔊';
+    visualizer.style.display = 'flex';
+  } else {
+    music.pause();
+    soundToggle.textContent = '🔈';
+    visualizer.style.display = 'none';
+  }
+});
+
+/* ── STAGE UNLOCKING HELPER ── */
+function unlock(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('locked');
+  el.classList.add('unlocked');
+
+  if (id === 'stage-3d-lotus') {
+    init3DLotusScene();
+  }
+
+  setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+}
+
+document.getElementById('yesBtn').addEventListener('click', () => {
+  unlock('stage-game');
+});
+
+// "Let me think..." Button opens a beautiful devotion waiting overlay modal
+document.getElementById('maybeBtn').addEventListener('click', () => {
+  document.getElementById('maybeModal').style.display = 'flex';
+});
+
+const noBtn = document.getElementById('noBtn');
+let noStage = 0;
+const noTexts = ['No 🙈', 'You sure? 🥺', 'Please reconsider… 💔', 'Try Yes 🪷'];
+function dodge() {
+  const x = Math.random() * 140 - 70;
+  const y = Math.random() * 30;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
+noBtn.addEventListener('mouseover', dodge);
+noBtn.addEventListener('touchstart', dodge);
+noBtn.addEventListener('click', () => {
+  noStage = Math.min(noStage + 1, noTexts.length - 1);
+  noBtn.textContent = noTexts[noStage];
+  dodge();
+});
+   /* ── FIVE PETALS GAME LOGIC ── */
+const LOVE_WORDS = [
+  { dev: "प्रेम", translit: "Prema", meaning: "Pure Love", desc: "The gentlest old word for love — the kind that expects nothing back.", promise: "I promise a love that isn't kept in any account book." },
+  { dev: "स्नेह", translit: "Sneha", meaning: "Tender Affection", desc: "It also just means 'oil' — the same oil that keeps a small lamp burning steady, without flickering out.", promise: "I promise the quiet, steady kind of care that never runs out." },
+  { dev: "अनुराग", translit: "Anurāga", meaning: "Attachment of the Heart", desc: "Literally a 'coloring' — the way a heart flushes with someone it can'stop thinking of.", promise: "I promise a heart that stays coloured by you, and only you." },
+  { dev: "सख्य", translit: "Sākhya", meaning: "Loyal Friendship", desc: "The devotion of a true friend standing beside someone they love — steady through every season.", promise: "I promise to stand beside you like the truest friend, in every season, easy or hard." },
+  { dev: "भक्ति", translit: "Bhakti", meaning: "Devoted Surrender", desc: "The deepest surrender of the heart — devotion that doesn't ask to be repaid.", promise: "I promise a devotion that doesn't waver the moment it gets difficult to keep." }
+];
+
+let collected = 0;
+const fill = document.getElementById('loyaltyFill');
+const countEl = document.getElementById('loyaltyCount');
+const lotusCenter = document.getElementById('lotusCenter');
+const continueBtn = document.getElementById('continueBtn');
+const overlay = document.getElementById('wordOverlay');
+
+document.querySelectorAll('.petal-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('done')) return;
+    const i = parseInt(btn.dataset.i, 10);
+    const w = LOVE_WORDS[i];
+
+    document.getElementById('wDev').textContent = w.dev;
+    document.getElementById('wTranslit').textContent = w.translit;
+    document.getElementById('wMeaning').textContent = w.meaning;
+    document.getElementById('wDesc').textContent = w.desc;
+    document.getElementById('wPromise').textContent = w.promise;
+    overlay.style.display = 'flex';
+    overlay.dataset.pending = i;
+
+    btn.classList.add('done');
+  });
+});
+
+document.getElementById('wClose').addEventListener('click', () => {
+  overlay.style.display = 'none';
+  collected++;
+  countEl.textContent = collected + ' / 5';
+  fill.style.width = (collected / 5 * 100) + '%';
+
+  const i = parseInt(overlay.dataset.pending, 10);
+  const w = LOVE_WORDS[i];
+  const slot = document.getElementById('glossaryGrid');
+  const card = document.createElement('div');
+  card.className = 'gloss-card';
+  card.innerHTML = `<div class="gloss-dev">${w.dev}</div><div class="gloss-translit">${w.translit}</div><div class="gloss-meaning">${w.meaning}</div>`;
+  slot.appendChild(card);
+
+  if (collected >= 5) {
+    lotusCenter.classList.add('bloomed');
+    continueBtn.style.display = 'inline-block';
+  }
+});
+
+/* Continue from 5 Petals Game to Stage 3 (3D Sacred Lotus Pond) */
+continueBtn.addEventListener('click', () => {
+  unlock('stage-3d-lotus');
+});
+
+/* Continue from 3D Lotus Pond to Stage 4 (Flute Puzzle) */
+document.getElementById('lotus3dContinueBtn').addEventListener('click', () => {
+  unlock('stage-puzzle');
+});
+
+/* ═══════════════════════════════════════════════════════════
+   ✦ THREE.JS 3D SACRED LOTUS POND & PROPOSAL SKY (FROM LOTUS.HTML) ✦
+   ═══════════════════════════════════════════════════════════ */
+let is3DInitialized = false;
+let scene, camera, renderer, controls;
+let clock = new THREE.Clock();
+let lotusGroup, petals = [], leaves = [];
+let waterMaterial, waterMesh;
+let ambientParticles, starsMesh;
+let skyPanelsGroup;
+let swimmingFishes = [], jumpingFish;
+
+let bloomTime = 0;
+let camTarget = new THREE.Vector3(0, 0.45, 0);
+
+// --- WATER GLSL SHADER ---
+const WaterShader = {
+  vertexShader: `
+      uniform float uTime;
+      varying vec3 vWorldPosition;
+      varying vec3 vNormal;
+      varying vec2 vUv;
+
+      void main() {
+          vUv = uv;
+          vec3 pos = position;
+
+          float wave1 = sin(pos.x * 0.14 + pos.z * 0.09 + uTime * 1.0) * 0.05;
+          float wave2 = cos(pos.x * 0.16 - pos.z * 0.20 + uTime * 0.75) * 0.035;
+          float wave3 = sin(pos.x * 0.35 + pos.z * 0.25 + uTime * 1.2) * 0.012;
+          pos.y += wave1 + wave2 + wave3;
+
+          vec4 worldPos = modelMatrix * vec4(pos, 1.0);
+          vWorldPosition = worldPos.xyz;
+
+          float dx = cos(pos.x * 0.14 + pos.z * 0.09 + uTime * 1.0) * 0.007;
+          float dz = cos(pos.x * 0.16 - pos.z * 0.20 + uTime * 0.75) * -0.007;
+          vNormal = normalize(vec3(-dx, 1.0, -dz));
+
+          gl_Position = projectionMatrix * viewMatrix * worldPos;
+      }
+  `,
+  fragmentShader: `
+      uniform vec3 uCameraPosition;
+      uniform vec3 uLightDir;
+      uniform float uTime;
+
+      varying vec3 vWorldPosition;
+      varying vec3 vNormal;
+      varying vec2 vUv;
+
+      void main() {
+          vec3 viewDir = normalize(uCameraPosition - vWorldPosition);
+          vec3 normal = normalize(vNormal);
+
+          float fresnel = pow(1.0 - max(dot(viewDir, normal), 0.0), 3.0);
+
+          vec3 deepWater = vec3(0.01, 0.05, 0.10);
+          vec3 shallowWater = vec3(0.02, 0.14, 0.20);
+          vec3 skyReflection = vec3(0.22, 0.45, 0.70);
+
+          vec3 baseColor = mix(deepWater, shallowWater, fresnel * 0.5 + 0.5);
+
+          vec3 halfDir = normalize(uLightDir + viewDir);
+          float spec = pow(max(dot(normal, halfDir), 0.0), 180.0);
+          vec3 specular = vec3(1.0, 0.95, 0.88) * spec * 2.6;
+
+          vec3 finalColor = mix(baseColor, skyReflection, fresnel * 0.65) + specular;
+          gl_FragColor = vec4(finalColor, 0.88);
+      }
+  `
+};
+
+function getResponsiveCamDistance() {
+  const isMobile = window.innerWidth < 768 || window.innerHeight > window.innerWidth;
+  return isMobile ? 13.5 : 9.5;
+}
+
+function getResponsiveFOV() {
+  const isMobile = window.innerWidth < 768 || window.innerHeight > window.innerWidth;
+  return isMobile ? 44 : 35;
+}
+
+function init3DLotusScene() {
+  if (is3DInitialized) {
+    on3DWindowResize();
+    return;
+  }
+  is3DInitialized = true;
+
+  const container = document.getElementById('webgl-container');
+
+  scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x02060d, 0.012);
+
+  const initialDist = getResponsiveCamDistance();
+  camera = new THREE.PerspectiveCamera(getResponsiveFOV(), container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(0, 2.2, initialDist);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.3;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  container.appendChild(renderer.domElement);
+
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.04;
+  controls.maxPolarAngle = Math.PI / 2 - 0.01;
+  controls.minDistance = 4.0;
+  controls.maxDistance = 28;
+  controls.target.copy(camTarget);
+
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 1.2;
+
+  setupLighting();
+  createWater();
+  createLotus();
+  createLeaves();
+  createFishSystem();
+  create360RingProposalSky();
+  createAmbientMist();
+
+  window.addEventListener('resize', on3DWindowResize);
+  animate3D();
+}
+
+function setupLighting() {
+  const ambient = new THREE.AmbientLight(0x2d4860, 2.2);
+  scene.add(ambient);
+
+  const keyLight = new THREE.DirectionalLight(0xfff5e6, 3.4);
+  keyLight.position.set(12, 22, 12);
+  keyLight.castShadow = true;
+  keyLight.shadow.mapSize.width = 2048;
+  keyLight.shadow.mapSize.height = 2048;
+  keyLight.shadow.bias = -0.0001;
+  scene.add(keyLight);
+
+  const flowerGlow = new THREE.PointLight(0xff2a85, 4.5, 12);
+  flowerGlow.position.set(0, 0.8, 0);
+  scene.add(flowerGlow);
+
+  const rimLight = new THREE.DirectionalLight(0x40a0ff, 2.4);
+  rimLight.position.set(-10, 8, -12);
+  scene.add(rimLight);
+}
+
+function createWater() {
+  const geometry = new THREE.PlaneGeometry(120, 120, 140, 140);
+  geometry.rotateX(-Math.PI / 2);
+
+  waterMaterial = new THREE.ShaderMaterial({
+      vertexShader: WaterShader.vertexShader,
+      fragmentShader: WaterShader.fragmentShader,
+      uniforms: {
+          uTime: { value: 0 },
+          uCameraPosition: { value: camera.position },
+          uLightDir: { value: new THREE.Vector3(12, 22, 12).normalize() }
+      },
+      transparent: true
+  });
+
+  waterMesh = new THREE.Mesh(geometry, waterMaterial);
+  waterMesh.receiveShadow = true;
+  scene.add(waterMesh);
+}
+
+function createFishMesh() {
+  const fishGroup = new THREE.Group();
+
+  const bodyGeom = new THREE.ConeGeometry(0.12, 0.6, 12);
+  bodyGeom.rotateX(Math.PI / 2);
+  const bodyMat = new THREE.MeshStandardMaterial({
+      color: 0xff4500,
+      roughness: 0.2,
+      metalness: 0.1,
+      emissive: 0xaa2200,
+      emissiveIntensity: 0.2
+  });
+  const body = new THREE.Mesh(bodyGeom, bodyMat);
+  fishGroup.add(body);
+
+  const tailGeom = new THREE.BufferGeometry();
+  const vertices = new Float32Array([
+      0, 0, -0.3,
+      0, 0.15, -0.55,
+      0, -0.15, -0.55
+  ]);
+  tailGeom.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+  tailGeom.computeVertexNormals();
+
+  const tailMat = new THREE.MeshBasicMaterial({ color: 0xff8833, side: THREE.DoubleSide });
+  const tail = new THREE.Mesh(tailGeom, tailMat);
+  tail.name = "tail";
+  fishGroup.add(tail);
+
+  return fishGroup;
+}
+
+function createFishSystem() {
+  swimmingFishes = [];
+
+  for (let i = 0; i < CONFIG.fishCount; i++) {
+      const fish = createFishMesh();
+      const radius = 2.5 + Math.random() * 3.5;
+      const angle = (i / CONFIG.fishCount) * Math.PI * 2;
+  fish.position.set(Math.cos(angle) * radius, -0.35 - Math.random() * 0.3, Math.sin(angle) * radius);
+      fish.scale.set(1.2, 1.2, 1.2);
+      scene.add(fish);
+
+      swimmingFishes.push({
+          mesh: fish,
+          radius: radius,
+          angle: angle,
+          speed: 0.4 + Math.random() * 0.3,
+          wiggleSpeed: 8 + Math.random() * 4,
+          depth: fish.position.y
+      });
+  }
+
+  const jFishMesh = createFishMesh();
+  jFishMesh.scale.set(1.4, 1.4, 1.4);
+  jFishMesh.visible = false;
+  scene.add(jFishMesh);
+
+  jumpingFish = {
+      mesh: jFishMesh,
+      timer: 0,
+      jumpInterval: 4.5,
+      isJumping: false,
+      jumpProgress: 0,
+      startPos: new THREE.Vector3(),
+      endPos: new THREE.Vector3()
+  };
+   } 
